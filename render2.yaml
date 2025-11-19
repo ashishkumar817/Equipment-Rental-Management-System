@@ -1,9 +1,0 @@
-services:
-  - type: web
-    name: erms-backend
-    rootDir: erms2-backend
-    plan: free
-    buildCommand: "chmod +x mvnw && ./mvnw clean install"
-    startCommand: "java -jar target/*.jar"
-
-

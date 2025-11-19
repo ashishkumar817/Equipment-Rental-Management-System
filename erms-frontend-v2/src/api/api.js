@@ -1,7 +1,7 @@
 // src/api/api.js
 import axios from "axios";
 
-const baseURL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080/api";
+const BASE_URL = "https://equipment-rental-management-system-3.onrender.com/api";
 
 const client = axios.create({
   baseURL,

@@ -1,93 +1,150 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import api from "../../api/api";
 
 export default function BookingCRUD() {
   const [bookings, setBookings] = useState([]);
   const [customers, setCustomers] = useState([]);
   const [equipment, setEquipment] = useState([]);
+
   const [form, setForm] = useState({
     id: "",
-    customeriId: "",
+    customerId: "",
     equipmentId: "",
     startDate: "",
     endDate: "",
     durationType: "DAILY",
     status: "PENDING",
   });
+
   const [editing, setEditing] = useState(false);
 
-  // ✅ Fetch all data on page load
+  // ===========================
+  // FETCH ALL DATA ON LOAD
+  // ===========================
   useEffect(() => {
-    fetchBookings();
-    fetchCustomers();
-    fetchEquipment();
+    loadBookings();
+    loadCustomers();
+    loadEquipment();
   }, []);
 
-  const fetchBookings = async () => {
-    const res = await axios.get("http://localhost:8080/api/bookings");
-    setBookings(res.data);
+  const loadBookings = async () => {
+    try {
+      const res = await api.getBookings(); // uses Render URL
+      setBookings(res.data);
+    } catch (err) {
+      console.error("Failed to load bookings:", err);
+    }
   };
 
-  const fetchCustomers = async () => {
-    const res = await axios.get("http://localhost:8080/api/customers");
-    setCustomers(res.data);
+  const loadCustomers = async () => {
+    try {
+      const res = await api.getCustomers(); // uses Render URL
+      setCustomers(res.data);
+    } catch (err) {
+      console.error("Failed to load customers:", err);
+    }
   };
 
-  const fetchEquipment = async () => {
-    const res = await axios.get("http://localhost:8080/api/equipment");
-    setEquipment(res.data);
+  const loadEquipment = async () => {
+    try {
+      const res = await api.getEquipments(); // uses Render URL
+      setEquipment(res.data);
+    } catch (err) {
+      console.error("Failed to load equipment:", err);
+    }
   };
 
-  // ✅ Handle input change
+  // ===========================
+  // HANDLE INPUT CHANGE
+  // ===========================
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // ✅ Add or Update Booking
+  // ===========================
+  // ADD / UPDATE BOOKING
+  // ===========================
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (editing) {
-      await axios.put(`http://localhost:8080/api/bookings/${form.id}`, form);
-      setEditing(false);
-    } else {
-      await axios.post("http://localhost:8080/api/bookings", form);
+
+    const data = {
+      customerId: form.customerId,
+      equipmentId: form.equipmentId,
+      startDate: form.startDate,
+      endDate: form.endDate,
+      durationType: form.durationType,
+      status: form.status,
+    };
+
+    try {
+      if (editing) {
+        await api.updateBooking(form.id, data);
+        setEditing(false);
+      } else {
+        await api.createBooking(data);
+      }
+
+      setForm({
+        id: "",
+        customerId: "",
+        equipmentId: "",
+        startDate: "",
+        endDate: "",
+        durationType: "DAILY",
+        status: "PENDING",
+      });
+
+      loadBookings();
+    } catch (err) {
+      console.error("Error saving booking:", err);
+      alert("Booking save failed.");
     }
-    setForm({
-      id: "",
-      customer_id: "",
-      equipment_id: "",
-      start_date: "",
-      end_date: "",
-      duration_type: "DAILY",
-      status: "PENDING",
-    });
-    fetchBookings();
   };
 
-  // ✅ Edit Booking
-  const handleEdit = (booking) => {
-    setForm(booking);
+  // ===========================
+  // EDIT BOOKING
+  // ===========================
+  const handleEdit = (b) => {
+    setForm({
+      id: b.id,
+      customerId: b.customer?.id || "",
+      equipmentId: b.equipment?.id || "",
+      startDate: b.startDate,
+      endDate: b.endDate,
+      durationType: b.durationType,
+      status: b.status,
+    });
     setEditing(true);
   };
 
-  // ✅ Delete Booking
+  // ===========================
+  // DELETE BOOKING
+  // ===========================
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this booking?")) {
-      await axios.delete(`http://localhost:8080/api/bookings/${id}`);
-      fetchBookings();
+    if (!window.confirm("Are you sure you want to delete this booking?"))
+      return;
+
+    try {
+      await api.deleteBooking(id);
+      loadBookings();
+    } catch (err) {
+      console.error("Delete failed:", err);
     }
   };
 
+  // ===========================
+  // RENDER
+  // ===========================
   return (
     <div className="p-6 max-w-6xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">Booking Management</h1>
 
-      {/* 📝 Booking Form */}
+      {/* FORM */}
       <form onSubmit={handleSubmit} className="mb-6 grid grid-cols-2 gap-4">
+        {/* Customer */}
         <select
-          name="customer_id"
-          value={form.customer_id}
+          name="customerId"
+          value={form.customerId}
           onChange={handleChange}
           required
           className="border p-2 rounded"
@@ -100,9 +157,10 @@ export default function BookingCRUD() {
           ))}
         </select>
 
+        {/* Equipment */}
         <select
-          name="equipment_id"
-          value={form.equipment_id}
+          name="equipmentId"
+          value={form.equipmentId}
           onChange={handleChange}
           required
           className="border p-2 rounded"
@@ -117,8 +175,8 @@ export default function BookingCRUD() {
 
         <input
           type="date"
-          name="start_date"
-          value={form.start_date}
+          name="startDate"
+          value={form.startDate}
           onChange={handleChange}
           required
           className="border p-2 rounded"
@@ -126,16 +184,16 @@ export default function BookingCRUD() {
 
         <input
           type="date"
-          name="end_date"
-          value={form.end_date}
+          name="endDate"
+          value={form.endDate}
           onChange={handleChange}
           required
           className="border p-2 rounded"
         />
 
         <select
-          name="duration_type"
-          value={form.duration_type}
+          name="durationType"
+          value={form.durationType}
           onChange={handleChange}
           className="border p-2 rounded"
         >
@@ -164,7 +222,7 @@ export default function BookingCRUD() {
         </button>
       </form>
 
-      {/* 📋 Booking Table */}
+      {/* TABLE */}
       <table className="min-w-full bg-white border">
         <thead>
           <tr className="bg-gray-200">
@@ -182,16 +240,13 @@ export default function BookingCRUD() {
           {bookings.map((b) => (
             <tr key={b.id} className="text-center">
               <td className="border px-4 py-2">{b.id}</td>
-              <td className="border px-4 py-2">
-                {customers.find((c) => c.id === b.customer_id)?.name || "N/A"}
-              </td>
-              <td className="border px-4 py-2">
-                {equipment.find((e) => e.id === b.equipment_id)?.name || "N/A"}
-              </td>
-              <td className="border px-4 py-2">{b.start_date}</td>
-              <td className="border px-4 py-2">{b.end_date}</td>
-              <td className="border px-4 py-2">{b.duration_type}</td>
+              <td className="border px-4 py-2">{b.customer?.name}</td>
+              <td className="border px-4 py-2">{b.equipment?.name}</td>
+              <td className="border px-4 py-2">{b.startDate}</td>
+              <td className="border px-4 py-2">{b.endDate}</td>
+              <td className="border px-4 py-2">{b.durationType}</td>
               <td className="border px-4 py-2">{b.status}</td>
+
               <td className="border px-4 py-2">
                 <button
                   onClick={() => handleEdit(b)}
@@ -211,7 +266,5 @@ export default function BookingCRUD() {
         </tbody>
       </table>
     </div>
-    
   );
-  
 }

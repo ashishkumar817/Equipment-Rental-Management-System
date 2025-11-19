@@ -4,5 +4,4 @@ services:
     runtime: docker
     rootDir: erms2-backend
     plan: free
-    buildCommand: "chmod +x mvnw && ./mvnw clean install"
-    startCommand: "java -jar target/*.jar"
+    dockerCommand: "java -jar target/*.jar"

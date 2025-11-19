@@ -1,0 +1,72 @@
+/* GLOBAL PREMIUM UI THEME */
+
+/* Brand Colors */
+:root {
+  --primary: #004aad;
+  --primary-light: #3f8cff;
+  --secondary: #6c757d;
+  --success: #28a745;
+  --warning: #ffb400;
+  --danger: #dc3545;
+  --dark-bg: #0d1117;
+  --glass-white: rgba(255, 255, 255, 0.75);
+}
+
+/* Modern font */
+body {
+  font-family: "Poppins", sans-serif;
+  background: #f4f7fb;
+  color: #222;
+}
+
+/* Glass Card */
+.glass-card {
+  border-radius: 18px;
+  padding: 22px;
+  backdrop-filter: blur(12px);
+  background: var(--glass-white);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1), inset 0 0 15px rgba(255,255,255,0.4);
+  transition: all 0.25s ease;
+}
+.glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 22px rgba(0,0,0,0.15);
+}
+
+/* Buttons */
+.btn-rounded {
+  padding: 10px 20px;
+  border-radius: 50px !important;
+  font-weight: 500;
+  transition: 0.25s;
+}
+.btn-rounded:hover {
+  transform: scale(1.05);
+}
+
+/* Table Premium */
+.table-premium thead {
+  background: linear-gradient(90deg, var(--primary), var(--primary-light));
+  color: white;
+}
+.table-premium tbody tr:hover {
+  background: rgba(0,0,0,0.03);
+  transition: 0.2s;
+}
+
+/* Badges */
+.badge-success {
+  background: var(--success);
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+.badge-warning {
+  background: var(--warning);
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+.badge-danger {
+  background: var(--danger);
+  padding: 8px 12px;
+  border-radius: 6px;
+}

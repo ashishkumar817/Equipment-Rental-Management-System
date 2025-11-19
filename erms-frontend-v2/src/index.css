@@ -1,0 +1,256 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  font-family: system-ui, sans-serif;
+  min-height: 100vh;
+  display: block;    /* important: remove the flex centering behavior */
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+/* index.css — add at bottom */
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+/* Featured Equipment Title */
+.container h3 {
+  color: #ffffff !important;
+}
+
+
+/* Hero background and image sizing */
+.hero-section {
+  background: linear-gradient(to bottom, rgb(20, 112, 2), rgba(0, 255, 0, 0.1));
+  /* add a subtle background image if you want:
+     background-image: url('/hero-bg.jpg'); background-size: cover; background-position: center; */
+}
+.hero-image {
+  max-height: 400px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Make main content push footer to bottom */
+main.container {
+  flex: 1 0 auto;
+}
+
+/* footer */
+footer {
+  flex-shrink: 0;
+}
+/* NAVBAR STYLING */
+.navbar {
+  font-family: "Poppins", sans-serif;
+}
+
+.navbar-nav .nav-link {
+  color: #000;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+  color: #0d6efd; /* Bootstrap primary blue */
+}
+
+.btn-primary {
+  background-color: #142b63 !important;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #0b1e4a !important;
+}
+
+.dropdown-menu {
+  border-radius: 0.5rem;
+}
+
+/* HERO */
+
+
+.hero-slide-img {
+  height: 600px;
+  width: 100%;
+  object-fit: cover;
+}
+/* Add space between hero carousel and black featured section */
+.featured-section {
+  padding-top: 50px;   /* optional */
+}
+
+
+@media (max-width: 768px) {
+  .hero-slide-img {
+    height: 260px;
+  }
+}
+
+.carousel-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  
+  z-index: 1;
+}
+
+.carousel-caption {
+  z-index: 2;
+  text-align: left;
+  left: 5%;
+}
+
+/* Equipment card images */
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+/* left aligned caption adjustments */
+.hero-caption-left { transform: translateY(-10%); text-align: left; max-width: 620px; }
+
+/* caption text styles (tweak colors) */
+.carousel-caption h1,
+.carousel-caption h2 { color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,0.45); }
+.carousel-caption p { color: rgba(255,255,255,0.9); }
+
+/* control arrow vertical centering / size */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 48px; height: 48px;
+  background-size: 48px 48px;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.35));
+}
+
+/* reduce default carousel top/bottom gap if your page uses container padding */
+.hero-section { margin-top: -40px; margin-bottom: 10px; }
+
+/* if navbar is overlapping, ensure body content starts after navbar */
+body { padding-top: 0; }
+.navbar {
+  transition: all 0.3s ease;
+}
+.navbar-brand span {
+  font-size: 1.25rem;
+  letter-spacing: 0.3px;
+}
+.nav-link {
+  font-weight: 500;
+  color: #333;
+  transition: color 0.2s;
+}
+.nav-link:hover, .nav-link.active {
+  color: #0d6efd !important;
+}
+/* Add space after hero */
+.hero-spacer {
+  height: 30px;
+  background: #ffffff;
+}
+
+/* Black full-width section */
+
+
+/* Make Featured Equipment text white */
+.featured-wrapper h3 {
+  color: white;
+}
+
+/* Featured Equipment Title */
+.featured-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  margin-bottom: 25px;
+  text-shadow: 0px 2px 6px rgba(0,0,0,0.4);
+}
+
+.price-green {
+  color: #28a745 !important;
+  font-weight: 600 !important;
+}
+
+.footer-love {
+  color: #ffffffb3;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+.footer-love span {
+  color: red;
+  font-size: 1.2rem;
+}

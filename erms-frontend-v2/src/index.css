@@ -85,11 +85,7 @@ body {
 
 
 /* Hero background and image sizing */
-.hero-section {
-  background: linear-gradient(to bottom, rgb(20, 112, 2), rgba(0, 255, 0, 0.1));
-  /* add a subtle background image if you want:
-     background-image: url('/hero-bg.jpg'); background-size: cover; background-position: center; */
-}
+
 .hero-image {
   max-height: 400px;
   width: 100%;
@@ -196,7 +192,11 @@ footer {
 }
 
 /* reduce default carousel top/bottom gap if your page uses container padding */
-.hero-section { margin-top: -40px; margin-bottom: 10px; }
+/* reduce default carousel top/bottom gap if your page uses container padding */
+.home-hero {                 /* NEW CLASS NAME */
+  margin-top: -40px;
+  margin-bottom: 10px;
+}
 
 /* if navbar is overlapping, ensure body content starts after navbar */
 body { padding-top: 0; }
@@ -254,3 +254,94 @@ body { padding-top: 0; }
   color: red;
   font-size: 1.2rem;
 }
+
+
+/* ===========================
+   MOBILE RESPONSIVE TWEAKS
+   =========================== */
+@media (max-width: 576px) {
+
+  /* NAVBAR BRAND */
+  .navbar-brand img {
+    width: 60px;
+  }
+
+  .navbar-brand span {
+    font-size: 0.8rem;
+    line-height: 1.1;
+    max-width: 150px;
+  }
+
+  /* prevent hero from hiding behind navbar on phones */
+  .home-hero {
+    margin-top: 0;         /* remove the -40px on small screens */
+  }
+
+  /* HERO SLIDE IMAGE */
+  .hero-slide-img {
+    height: 230px;
+    object-fit: cover;
+  }
+
+  /* CAROUSEL CAPTION */
+  .carousel-caption {
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    bottom: 8%;
+    padding: 0 1rem;
+  }
+
+  .carousel-caption .lead {
+    font-size: 0.9rem;
+  }
+
+  /* BUTTONS – full-width & stacked */
+  .carousel-caption .btn {
+    display: block;
+    width: 100%;
+    margin: 0.35rem 0;
+  }
+
+  /* FEATURED SECTION SPACING */
+  .hero-spacer {
+    height: 10px;
+  }
+
+  .featured-title {
+    font-size: 1.6rem;
+  }
+}
+
+
+/* Only push down HOME page hero on desktop */
+@media (min-width: 769px) {
+  .home-hero {
+    margin-top: -40px;
+  }
+}
+
+/* On mobile: No negative margin */
+@media (max-width: 768px) {
+  .home-hero {
+    margin-top: 0 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-caption {
+    bottom: 15px !important;
+    transform: translateX(-50%);
+    left: 50% !important;
+    text-align: center !important;
+    width: 90%;
+  }
+
+  .carousel-caption .btn {
+    width: 100%;
+    margin: 5px 0;
+  }
+}
+
+
+

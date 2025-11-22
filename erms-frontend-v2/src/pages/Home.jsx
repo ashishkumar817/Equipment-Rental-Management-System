@@ -26,7 +26,8 @@ export default function Home() {
     <div>
       {/* HERO - Bootstrap carousel */}
 
-<section className="hero-section">
+<section className="hero-section home-hero">
+
   <div id="heroCarousel" className="carousel slide" data-bs-ride="carousel">
     <div className="carousel-inner">
 

@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import About from "./pages/About";
 import Services from "./pages/Services";
+
 import Gallery from "./pages/Gallery";
 
 // Components
